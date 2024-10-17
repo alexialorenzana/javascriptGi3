@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+
+int romanToInt(char *s) {
+    int userInt = 0;
+    int i = 0;
+    
+    while (s[i] != '\0') {
+        if (s[i] == 'I') {
+            if (s[i + 1] == 'V' || s[i + 1] == 'X') {
+                userInt -= 1; // Subtract because IV = 4, IX = 9
+            } else {
+                userInt += 1;
+            }
+        } else if (s[i] == 'V') {
+            userInt += 5;
+        } else if (s[i] == 'X') {
+            if (s[i + 1] == 'L' || s[i + 1] == 'C') {
+                userInt -= 10; // Subtract because XL = 40, XC = 90
+            } else {
+                userInt += 10;
+            }
+        } else if (s[i] == 'L') {
+            userInt += 50;
+        } else if (s[i] == 'C') {
+            userInt += 100;
+        }
+        // Move to the next character
+        i++;
+    }
+    
+    return userInt;
+}
+
+int main() {
+    char userInput[100];  // Allows the user to input a string of Roman numerals
+    printf("Enter an expression using Roman numerals: ");
+    scanf("%s", userInput);  // Use %s to read a string
+    
+    int result = romanToInt(userInput);
+    printf("The integer value is: %d\n", result);
+
+    return 0;
+}
